@@ -1,0 +1,36 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+WinWait, Cannot Identify Device, 
+IfWinNotActive, Cannot Identify Device, , WinActivate, Cannot Identify Device, 
+WinWaitActive, Cannot Identify Device, 
+MouseClick, left,  399,  51
+Sleep, 100
+
+
+
+
+
+
+WinWait, Diamond Programmer - Untitled *, 
+IfWinNotActive, Diamond Programmer - Untitled *, , WinActivate, Diamond Programmer - Untitled *, 
+WinWaitActive, Diamond Programmer - Untitled *, 
+MouseClick, left,  624,  15
+Sleep, 100
+MouseClick, left,  247,  69
+Sleep, 100
+WinWait, Cannot Identify Device, 
+IfWinNotActive, Cannot Identify Device, , WinActivate, Cannot Identify Device, 
+WinWaitActive, Cannot Identify Device, 
+MouseClick, left,  464,  100
+Sleep, 100
