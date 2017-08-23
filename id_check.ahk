@@ -11,7 +11,6 @@ FindFail()
 	ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, %fail_image_path%
     if ErrorLevel = 0
     {
-        VolPos := (FoundY + 1)
         ;ToolTip, Yes
         return 1
     }
@@ -33,10 +32,21 @@ FindSuccess()
 	ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, %image_path%
     if ErrorLevel = 0
     {
-        VolPos := (FoundY + 1)
-        ;ToolTip, Yes
+        ToolTip, Yes1
         return 1
     }
+
+
+    image_path := "clipped\pass_id_result2.bmp"
+
+    ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, %image_path%
+    if ErrorLevel = 0
+    {
+        ToolTip, Yes2
+        return 1
+    }
+
+
     ;ToolTip, No
     return 0
 }
@@ -126,6 +136,8 @@ ProgramSearchSingle()
 		failfound := FindFail()
 		winfound := FindSuccess()
 
+		ToolTip, win %winfound% fail %failfound%
+
 		if failfound = 1 && winfound = 1
 		{
 			MsgBox, Both Success and Failure detected. Script needs rewrite
@@ -140,6 +152,7 @@ ProgramSearchSingle()
 
 		if winfound = 1
 		{
+			MsgBox, Pass
 			return 0
 		}
 
@@ -174,10 +187,12 @@ Loop,
 		else
 		{
 			ToolTip, waiting for control+g  to go
+			;ToolTip, blah %operationchanged% %starthotkey%
 		}
 
 		if starthotkey = 1
 		{
+			ToolTip, Starting...
 			ActivateWindow()
 			ResizeWindow()
 			ClearLog()
@@ -209,7 +224,6 @@ Sleep, 1000
 
 
 ^g::
-	ToolTip, starting
 	starthotkey = 1
 	Sleep, 1000
 return
