@@ -130,13 +130,13 @@ ProgramSearchSingle()
 {
 	DoProgram()
 
-	Loop, 100
+	Loop 100
 	{
 
 		failfound := FindFail()
 		winfound := FindSuccess()
 
-		ToolTip, win %winfound% fail %failfound%
+		; ToolTip, win %winfound% fail %failfound%
 
 		if failfound = 1 && winfound = 1
 		{
@@ -150,17 +150,43 @@ ProgramSearchSingle()
 			return 1
 		}
 
+
 		if winfound = 1
 		{
-			MsgBox, Pass
 			return 0
 		}
+
+		; ToolTip, Single number is %A_Index%
 
 
 		Sleep, 100
 	}
 }
 
+ProgramMulti()
+{
+	passes := 0
+	fails := 0
+
+	; ToolTip, Program Multi
+	; sleep, 1000
+
+
+	; This number is how many tests to do per ctrl+g
+
+	Loop, 20
+	{
+		singleres := ProgramSearchSingle()
+
+		if singleres = 0
+		{
+			passes := passes + 1
+		}
+
+		ToolTip, Passes %passes%
+		; sleep, 500
+	}
+}
 
 
 ; -------------- Run at Startup stuff --------------
@@ -183,10 +209,10 @@ Loop,
 			ToolTip, Changing Operation
 			ChangeOperation()
 			operationchanged = 1
+			ToolTip, waiting for control+g  to go
 		}
 		else
 		{
-			ToolTip, waiting for control+g  to go
 			;ToolTip, blah %operationchanged% %starthotkey%
 		}
 
@@ -196,7 +222,7 @@ Loop,
 			ActivateWindow()
 			ResizeWindow()
 			ClearLog()
-			ProgramSearchSingle()
+			ProgramMulti()
 
 
 
@@ -215,15 +241,15 @@ Loop,
 }
 
 
-ToolTip % Var
+; ToolTip % Var
 ; FindFail()
 ; ToolTip, result
 
-Sleep, 1000
+; Sleep, 1000
 
 
 
 ^g::
 	starthotkey = 1
-	Sleep, 1000
+	; Sleep, 1000
 return
