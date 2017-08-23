@@ -146,6 +146,7 @@ ProgramSearchSingle()
 
 		if failfound = 1
 		{
+			SoundPlay, damn_it.wav
 			MsgBox, Chip Failed
 			return 1
 		}
@@ -182,10 +183,17 @@ ProgramMulti()
 		{
 			passes := passes + 1
 		}
+		else
+		{
+			ToolTip, Last Chip Failed. Waiting for control+g  to go
+			return 0
+		}
 
 		ToolTip, Passes %passes%
 		; sleep, 500
-	}
+	20
+
+	SoundPlay, bitchin.wav
 }
 
 
@@ -209,7 +217,7 @@ Loop,
 			ToolTip, Changing Operation
 			ChangeOperation()
 			operationchanged = 1
-			ToolTip, waiting for control+g  to go
+			ToolTip, Waiting for control+g  to go
 		}
 		else
 		{
