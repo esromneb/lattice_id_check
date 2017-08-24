@@ -11,7 +11,8 @@ FindFail()
 	ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, %fail_image_path%
     if ErrorLevel = 0
     {
-        ;ToolTip, Yes
+        ToolTip, Failyes
+        sleep, 300
         return 1
     }
     ;ToolTip, No
@@ -25,14 +26,15 @@ FindSuccess()
 
     x1 = 0
     y1 = 0
-    x2 = 3000
-    y2 = 3000
+    x2 = 400
+    y2 = 400
 
 	CoordMode Pixel
 	ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, %image_path%
     if ErrorLevel = 0
     {
         ToolTip, Yes1
+        sleep, 300
         return 1
     }
 
@@ -43,6 +45,17 @@ FindSuccess()
     if ErrorLevel = 0
     {
         ToolTip, Yes2
+        sleep, 300
+        return 1
+    }
+
+    image_path := "clipped\pass_id_result3.bmp"
+
+    ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, %image_path%
+    if ErrorLevel = 0
+    {
+        ToolTip, Yes3
+        sleep, 300
         return 1
     }
 
@@ -83,8 +96,8 @@ ResizeWindow()
 ChangeOperation()
 {
 	ActivateWindow()
-	MouseClick, left,  172,  118
-	MouseClick, left,  172,  118
+	MouseClick, left,  172,  125
+	MouseClick, left,  172,  125
 	Sleep, 100
 	WinWait, ECP5U - LFE5U-85F - Device Properties,, 0.01
 	IfWinNotActive, ECP5U - LFE5U-85F - Device Properties, , WinActivate, ECP5U - LFE5U-85F - Device Properties, 
@@ -191,8 +204,7 @@ ProgramMulti()
 
 		ToolTip, Passes %passes%
 		; sleep, 500
-	20
-
+	}
 	SoundPlay, bitchin.wav
 }
 
@@ -203,7 +215,7 @@ starthotkey = 0
 
 
 ToolTip, Welcome to SigLabs FPGA tester.`nTo get started you need to start with a GOOD FPGA open Diamond Programmer`nand press OK
-Sleep, 200
+Sleep, 300
 
 
 Loop,
@@ -219,11 +231,6 @@ Loop,
 			operationchanged = 1
 			ToolTip, Waiting for control+g  to go
 		}
-		else
-		{
-			;ToolTip, blah %operationchanged% %starthotkey%
-		}
-
 		if starthotkey = 1
 		{
 			ToolTip, Starting...
@@ -231,8 +238,6 @@ Loop,
 			ResizeWindow()
 			ClearLog()
 			ProgramMulti()
-
-
 
 			starthotkey = 0
 		}
@@ -247,14 +252,6 @@ Loop,
 	}
 	Sleep, 10
 }
-
-
-; ToolTip % Var
-; FindFail()
-; ToolTip, result
-
-; Sleep, 1000
-
 
 
 ^g::
